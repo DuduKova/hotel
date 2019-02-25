@@ -25,7 +25,7 @@ class EmployeeList extends React.Component<IMyComponentProps, []> {
                         </div>
                         <div className="col-md-8">
                             <div className="card-body">
-                                <h5 className="card-title">{employee.firstName} {employee.lastName}</h5>
+                                <h5 className="card-title">{employee.firstName} {employee.lastName.charAt(0).toUpperCase()}.</h5>
                                 <p className="small">{employee.totalHours} hours</p>
                             </div>
                         </div>
