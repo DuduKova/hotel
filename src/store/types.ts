@@ -3,7 +3,7 @@ export interface IEmployee {
     firstName: string,
     lastName: string,
     profileImageUrl: string,
-    totalDays: number
+    totalHours: number
 }
 
 export interface IBooking {

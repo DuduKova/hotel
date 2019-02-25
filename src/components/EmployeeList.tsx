@@ -1,4 +1,4 @@
-import {forOwn, get, groupBy, omit, orderBy} from 'lodash';
+import {forIn, forOwn, get, groupBy, omit, orderBy} from 'lodash';
 // @ts-ignore
 import moment from 'moment';
 import * as React from "react";
@@ -26,7 +26,7 @@ class EmployeeList extends React.Component<IMyComponentProps, []> {
                         <div className="col-md-8">
                             <div className="card-body">
                                 <h5 className="card-title">{employee.firstName} {employee.lastName}</h5>
-                                <p className="small">{employee.totalDays} hours</p>
+                                <p className="small">{employee.totalHours} hours</p>
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@ class EmployeeList extends React.Component<IMyComponentProps, []> {
             return <div>Loading...</div>
         }
         return <div>
-            <h1>Employee stats</h1>
+            <h3>Employee stats</h3>
             {this.renderList()}
         </div>;
     }
@@ -52,39 +52,33 @@ class EmployeeList extends React.Component<IMyComponentProps, []> {
 
 const getLeadingEmployees = (bookings: any) => {
     moment.defaultFormat = "DD-MM-YYYY";
-    const formattedArr = [];
-    for (let i = 1; i < Object.keys(bookings).length + 2; i++) {
-        if (!bookings[i]) {
-            continue;
-        }
+    const formattedArr: any[] = [];
 
-        forOwn(bookings[i], (value: any) => {
-            if (!bookings[i].totalDays) {
-                bookings[i].totalDays = 0
+    forIn(bookings, (book) => {
+        forOwn(book, (value) => {
+            if (!book.totalHours) {
+                book.totalHours = 0
             }
             const x = moment(value.checkInDate, moment.defaultFormat);
             const y = moment(value.checkOutDate, moment.defaultFormat);
-            bookings[i].totalDays += moment.duration(y.diff(x)).asHours();
+            book.totalHours += moment.duration(y.diff(x)).asHours();
         });
+        const employee = {
+            id: get(book, '0.employee.id'),
+            firstName: get(book, '0.employee.firstName'),
+            lastName: get(book, '0.employee.lastName'),
+            profileImageUrl: get(book, '0.employee.profileImageUrl'),
+            totalHours: get(book, 'totalHours'),
+        };
+        formattedArr.push(employee);
+    });
 
-        if (get(bookings[i], '0.employee.id')) {
-            const employee = {
-                id: get(bookings[i], '0.employee.id'),
-                firstName: get(bookings[i], '0.employee.firstName'),
-                lastName: get(bookings[i], '0.employee.lastName'),
-                profileImageUrl: get(bookings[i], '0.employee.profileImageUrl'),
-                totalDays: get(bookings[i], 'totalDays'),
-            };
-            formattedArr.push(employee);
-        }
-    }
-    return orderBy(formattedArr, ['totalDays'], ['desc']).slice(0, 3);
+    return orderBy(formattedArr, ['totalHours'], ['desc']).slice(0, 3);
 };
 
 const divStyle = {
     width: '40%'
 };
-
 
 const mapStateToProps = (state: any) => {
     return {bookings: state.bookings};
