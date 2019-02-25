@@ -5,6 +5,7 @@ import * as React from "react";
 import {connect} from "react-redux";
 import {IBooking, IEmployee} from 'src/store/types';
 import {getBookings} from '../store/actions';
+import EmployeeItem from "./EmployeeItem";
 
 interface IMyComponentProps {
     bookings: IBooking[];
@@ -16,17 +17,14 @@ class EmployeeList extends React.Component<IMyComponentProps, []> {
     public renderList() {
         // @ts-ignore
         const formattedList: IEmployee[] = getLeadingEmployees(omit(groupBy(this.props.bookings, 'employee.id'), undefined));
-        return formattedList.map(employee => {
+        return formattedList.map((employee, index) => {
+            if (index < 3) {
+                return (
+                    <EmployeeItem employee={employee} key={employee.id} leadingStyle={leadingStyle}/>
+                )
+            }
             return (
-                <div className="row no-gutters mb-3" key={employee.id}>
-                        <div className='col-1'>
-                            <img src={employee.profileImageUrl} className="rounded-circle float-left" alt='hahah'/>
-                        </div>
-                        <div className="col-3">
-                                <h5 className="text-white">{employee.firstName} {employee.lastName.charAt(0).toUpperCase()}.</h5>
-                                <p className="small">{employee.totalHours} hours</p>
-                        </div>
-                </div>
+             <EmployeeItem employee={employee} key={employee.id} />
             )
         })
     }
@@ -37,7 +35,7 @@ class EmployeeList extends React.Component<IMyComponentProps, []> {
 
     public render() {
         if (!this.props.bookings.length) {
-            return <div>Loading...</div>
+            return <div className='display-1 text-center'>Loading...</div>
         }
         return <div>
             <h3 className='mb-5 text-white'>Employee stats</h3>
@@ -48,7 +46,7 @@ class EmployeeList extends React.Component<IMyComponentProps, []> {
 
 const getLeadingEmployees = (bookings: any) => {
     moment.defaultFormat = "DD-MM-YYYY";
-    const formattedArr: any[] = [];
+    const formattedArr: IEmployee[] = [];
 
     forIn(bookings, (employeeDeals) => {
         forOwn(employeeDeals, (deal) => {
@@ -69,8 +67,12 @@ const getLeadingEmployees = (bookings: any) => {
         formattedArr.push(employee);
     });
 
-    return orderBy(formattedArr, ['totalHours'], ['desc']).slice(0, 3);
+    return orderBy(formattedArr, ['totalHours'], ['desc']);
 };
+
+        const leadingStyle = {
+           color: 'orange'
+        };
 
 const mapStateToProps = (state: any) => {
     return {bookings: state.bookings};

@@ -1,6 +1,7 @@
-import {combineReducers} from 'redux';
+import {combineReducers, Reducer} from 'redux';
+import {IBooking, IState} from "./types";
 
-const bookingReducer = (state = [] , action: { type: string; payload: any; }) => {
+const bookingReducer: Reducer<IBooking[]> = (state: IBooking[] = [] , action: { type: string; payload: any; }) => {
     switch (action.type) {
         case 'GET_BOOKINGS':
             return action.payload;
@@ -8,7 +9,8 @@ const bookingReducer = (state = [] , action: { type: string; payload: any; }) =>
     }
 };
 
-const dashboardReducer = (state = [] , action: { type: string; payload: any; }) => {
+// @ts-ignore
+const dashboardReducer: Reducer<IState> = (state = {} , action: { type: string; payload: any; }) => {
     switch (action.type) {
         case 'GET_DASHBOARD_TOTALS':
             return action.payload;
