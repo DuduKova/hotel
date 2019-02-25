@@ -14,7 +14,7 @@ class Dashboard extends React.Component<IMyComponentProps, []> {
         this.props.getDashboardTotals();
         setInterval(() => {
             this.props.getDashboardTotals()
-        } , 10000);
+        }, 10000);
     }
 
     public render() {
@@ -22,9 +22,18 @@ class Dashboard extends React.Component<IMyComponentProps, []> {
             return <nav className='navbar navbar-expand-lg navbar-dark bg-dark text-center text-white row'>...</nav>;
         }
         return (<nav className='navbar navbar-expand-lg navbar-dark bg-dark text-center text-white row'>
-                <div className='col-4'>{this.props.dashboard.availableRooms} <div className='small'>Available Rooms</div></div>
-                <div className='col-4'>{this.props.dashboard.reservedRooms} <div className='small'>Reserved Rooms</div></div>
-                <div className='col-4'>{this.props.dashboard.checkedIn} <div className='small'>Checked In</div></div>
+                <div className='col-3'><h4>{this.props.dashboard.availableRooms}</h4>
+                    <div className='small'>Available Rooms</div>
+                </div>
+                <div className='col-3'><h4>{this.props.dashboard.reservedRooms}</h4>
+                    <div className='small'>Reserved Rooms</div>
+                </div>
+                <div className='col-3'><h4>{this.props.dashboard.checkedIn}</h4>
+                <div className='small'>Checked In</div>
+            </div>
+                <div className='col-3'><h4>{this.props.dashboard.weekAvailabilityPercent}%</h4>
+                    <div className='small'>Week Availability</div>
+                </div>
             </nav>
         )
     }

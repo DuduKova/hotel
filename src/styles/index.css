@@ -13,4 +13,8 @@ body {
 img {
   width: 40%; }
 
+.leading {
+  color: darkorange;
+  font-size: large; }
+
 /*# sourceMappingURL=index.css.map */

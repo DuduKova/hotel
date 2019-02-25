@@ -24,7 +24,7 @@ class EmployeeList extends React.Component<IMyComponentProps, []> {
                 )
             }
             return (
-             <EmployeeItem employee={employee} key={employee.id} />
+                <EmployeeItem employee={employee} key={employee.id}/>
             )
         })
     }
@@ -70,9 +70,7 @@ const getLeadingEmployees = (bookings: any) => {
     return orderBy(formattedArr, ['totalHours'], ['desc']);
 };
 
-        const leadingStyle = {
-           color: 'orange'
-        };
+const leadingStyle = 'leading';
 
 const mapStateToProps = (state: any) => {
     return {bookings: state.bookings};
