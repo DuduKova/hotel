@@ -22,5 +22,4 @@ export interface IState {
     reservedRooms: number,
     checkedIn: number,
     weekAvailabilityPercent: number,
-    bookings: IBooking[]
 }
