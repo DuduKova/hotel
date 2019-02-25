@@ -21,7 +21,7 @@ class Dashboard extends React.Component<IMyComponentProps, []> {
         if (!this.props.dashboard.checkedIn) {
             return <div>Loading...</div>;
         }
-        return (<nav className='navbar navbar-expand-lg navbar-light bg-light text-center row'>
+        return (<nav className='navbar navbar-expand-lg navbar-dark bg-dark text-center text-white row'>
                 <div className='col-4'>{this.props.dashboard.availableRooms} <div className='small'>Available Rooms</div></div>
                 <div className='col-4'>{this.props.dashboard.reservedRooms} <div className='small'>Reserved Rooms</div></div>
                 <div className='col-4'>{this.props.dashboard.checkedIn} <div className='small'>Checked In</div></div>

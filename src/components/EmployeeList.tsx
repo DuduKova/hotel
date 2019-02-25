@@ -18,15 +18,13 @@ class EmployeeList extends React.Component<IMyComponentProps, []> {
         const formattedList: IEmployee[] = getLeadingEmployees(omit(groupBy(this.props.bookings, 'employee.id'), undefined));
         return formattedList.map(employee => {
             return (
-                <div className="row no-gutters mb-3" style={divStyle} key={employee.id}>
-                        <div className='col-4'>
+                <div className="row no-gutters mb-3" key={employee.id}>
+                        <div className='col-1'>
                             <img src={employee.profileImageUrl} className="rounded-circle float-left" alt='hahah'/>
                         </div>
-                        <div className="col-md-8">
-                            <div className="card-body">
-                                <h5 className="card-title">{employee.firstName} {employee.lastName.charAt(0).toUpperCase()}.</h5>
+                        <div className="col-3">
+                                <h5 className="text-white">{employee.firstName} {employee.lastName.charAt(0).toUpperCase()}.</h5>
                                 <p className="small">{employee.totalHours} hours</p>
-                            </div>
                         </div>
                 </div>
             )
@@ -42,7 +40,7 @@ class EmployeeList extends React.Component<IMyComponentProps, []> {
             return <div>Loading...</div>
         }
         return <div>
-            <h3 className='mb-5'>Employee stats</h3>
+            <h3 className='mb-5 text-white'>Employee stats</h3>
             {this.renderList()}
         </div>;
     }
@@ -73,12 +71,6 @@ const getLeadingEmployees = (bookings: any) => {
 
     return orderBy(formattedArr, ['totalHours'], ['desc']).slice(0, 3);
 };
-
-const divStyle = {
-    width: '40%',
-    border: 'none'
-};
-
 
 const mapStateToProps = (state: any) => {
     return {bookings: state.bookings};
