@@ -18,10 +18,9 @@ class EmployeeList extends React.Component<IMyComponentProps, []> {
         const formattedList: IEmployee[] = getLeadingEmployees(omit(groupBy(this.props.bookings, 'employee.id'), undefined));
         return formattedList.map(employee => {
             return (
-                <div className="card mb-3" style={divStyle} key={employee.id}>
-                    <div className="row no-gutters">
+                <div className="row no-gutters mb-3" style={divStyle} key={employee.id}>
                         <div className='col-4'>
-                            <img src={employee.profileImageUrl} className="card-img" alt='hahah'/>
+                            <img src={employee.profileImageUrl} className="rounded-circle float-left" alt='hahah'/>
                         </div>
                         <div className="col-md-8">
                             <div className="card-body">
@@ -29,7 +28,6 @@ class EmployeeList extends React.Component<IMyComponentProps, []> {
                                 <p className="small">{employee.totalHours} hours</p>
                             </div>
                         </div>
-                    </div>
                 </div>
             )
         })
@@ -44,7 +42,7 @@ class EmployeeList extends React.Component<IMyComponentProps, []> {
             return <div>Loading...</div>
         }
         return <div>
-            <h3>Employee stats</h3>
+            <h3 className='mb-5'>Employee stats</h3>
             {this.renderList()}
         </div>;
     }
@@ -57,7 +55,7 @@ const getLeadingEmployees = (bookings: any) => {
     forIn(bookings, (employeeDeals) => {
         forOwn(employeeDeals, (deal) => {
             if (!employeeDeals.totalHours) {
-                employeeDeals.totalHours = 0
+                employeeDeals.totalHours = 0;
             }
             const x = moment(deal.checkInDate, moment.defaultFormat);
             const y = moment(deal.checkOutDate, moment.defaultFormat);
@@ -77,8 +75,10 @@ const getLeadingEmployees = (bookings: any) => {
 };
 
 const divStyle = {
-    width: '40%'
+    width: '40%',
+    border: 'none'
 };
+
 
 const mapStateToProps = (state: any) => {
     return {bookings: state.bookings};

@@ -19,7 +19,7 @@ class Dashboard extends React.Component<IMyComponentProps, []> {
 
     public render() {
         if (!this.props.dashboard.checkedIn) {
-            return <div>Loading...</div>
+            return <div>Loading...</div>;
         }
         return (<nav className='navbar navbar-expand-lg navbar-light bg-light text-center row'>
                 <div className='col-4'>{this.props.dashboard.availableRooms} <div className='small'>Available Rooms</div></div>
