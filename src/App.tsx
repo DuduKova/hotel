@@ -7,7 +7,7 @@ class App extends React.Component {
     public render() {
         return (
             <div>
-                <Dashboard/>
+                <Dashboard />
                 <hr/>
                 <div className='container'>
                     <EmployeeList/>

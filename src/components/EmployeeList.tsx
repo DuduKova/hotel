@@ -54,21 +54,21 @@ const getLeadingEmployees = (bookings: any) => {
     moment.defaultFormat = "DD-MM-YYYY";
     const formattedArr: any[] = [];
 
-    forIn(bookings, (book) => {
-        forOwn(book, (value) => {
-            if (!book.totalHours) {
-                book.totalHours = 0
+    forIn(bookings, (employeeDeals) => {
+        forOwn(employeeDeals, (deal) => {
+            if (!employeeDeals.totalHours) {
+                employeeDeals.totalHours = 0
             }
-            const x = moment(value.checkInDate, moment.defaultFormat);
-            const y = moment(value.checkOutDate, moment.defaultFormat);
-            book.totalHours += moment.duration(y.diff(x)).asHours();
+            const x = moment(deal.checkInDate, moment.defaultFormat);
+            const y = moment(deal.checkOutDate, moment.defaultFormat);
+            employeeDeals.totalHours += moment.duration(y.diff(x)).asHours();
         });
         const employee = {
-            id: get(book, '0.employee.id'),
-            firstName: get(book, '0.employee.firstName'),
-            lastName: get(book, '0.employee.lastName'),
-            profileImageUrl: get(book, '0.employee.profileImageUrl'),
-            totalHours: get(book, 'totalHours'),
+            id: get(employeeDeals, '0.employee.id'),
+            firstName: get(employeeDeals, '0.employee.firstName'),
+            lastName: get(employeeDeals, '0.employee.lastName'),
+            profileImageUrl: get(employeeDeals, '0.employee.profileImageUrl'),
+            totalHours: get(employeeDeals, 'totalHours'),
         };
         formattedArr.push(employee);
     });
