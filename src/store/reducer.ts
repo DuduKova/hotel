@@ -1,7 +1,7 @@
 import {combineReducers, Reducer} from 'redux';
 import {IBooking, IState} from "./types";
 
-const bookingReducer: Reducer<IBooking[]> = (state: IBooking[] = [] , action: { type: string; payload: any; }) => {
+const bookingReducer: Reducer<IBooking[]> = (state: IBooking[] = [] , action: { type: string; payload: IBooking[]; }) => {
     switch (action.type) {
         case 'GET_BOOKINGS':
             return action.payload;
@@ -10,7 +10,7 @@ const bookingReducer: Reducer<IBooking[]> = (state: IBooking[] = [] , action: { 
 };
 
 // @ts-ignore
-const dashboardReducer: Reducer<IState> = (state = {} , action: { type: string; payload: any; }) => {
+const dashboardReducer: Reducer<IState> = (state = {} , action: { type: string; payload: IState; }) => {
     switch (action.type) {
         case 'GET_DASHBOARD_TOTALS':
             return action.payload;
